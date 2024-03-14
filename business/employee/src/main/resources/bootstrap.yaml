@@ -1,0 +1,21 @@
+server:
+   port: 8081
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    path: /swagger/index.html
+    enabled: true
+
+spring:
+  mvc:
+    pathmatch:
+        matching-strategy: ant-path-matcher
+  application:
+    name: employee
+  #config server configuration
+  profiles:
+    active: local
+  config:
+    import: optional:configserver:http://localhost:8085
