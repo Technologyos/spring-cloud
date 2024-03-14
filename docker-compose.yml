@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  postgres_db:
+    container_name: postgresql
+    image: postgres:14.2
+    command: postgres -c 'max_connections=200'
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      #default postgres super user
+      POSTGRES_USER: ${PGS_USER}
+      #default password for postgres super user, it is only the required envvar for postgres image
+      POSTGRES_PASSWORD: ${PGS_PASSWORD}
+      #main database if name is not specific thname of super user is use
+      POSTGRES_DB: ${PGS_DB}
+      PGDATA: /tmp
+    volumes:
+      - ./dbfiles:/docker-entrypoint-initdb.d
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: "exit 0"
+    networks:
+      - postgres-network
+
+  pgadmin4:
+    container_name: pgadmin4-service
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGA_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGA_PASSWORD}
+    ports:
+      - 80:80
+    depends_on:
+      - postgres_db
+    networks:
+      - postgres-network
+
+volumes:
+  postgres-data:
+    driver: local
+
+networks:
+  postgres-network:
+    driver: bridge
