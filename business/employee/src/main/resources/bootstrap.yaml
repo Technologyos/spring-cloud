@@ -11,7 +11,7 @@ springdoc:
 spring:
   mvc:
     pathmatch:
-        matching-strategy: ant-path-matcher
+      matching-strategy: ant-path-matcher
   application:
     name: employee
   #config server configuration
