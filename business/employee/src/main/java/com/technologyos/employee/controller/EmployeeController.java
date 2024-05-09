@@ -5,6 +5,7 @@ import com.technologyos.employee.config.ConfigProperties;
 import com.technologyos.employee.entities.Employee;
 import com.technologyos.employee.models.EmployeeProps;
 import com.technologyos.employee.repository.EmployeeRepository;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -35,6 +36,7 @@ public class EmployeeController {
     @ApiResponses(value={@ApiResponse(responseCode = "200", description = "Success",
         content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Employee.class))}),
         @ApiResponse(responseCode = "400", description = "Bad request")})
+    @CircuitBreaker(name="getEmployeesCB")
     public ResponseEntity<List<Employee>> findAll() {
         return Optional.ofNullable(roleRepository.findAll().isEmpty() ? null:roleRepository.findAll())
             .map(ResponseEntity::ok)

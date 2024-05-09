@@ -52,3 +52,16 @@ info:
 endpoint:
   shutdown:
     enabled: true
+
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        registerHealthIndicator: true
+    instances:
+      getEmployeesCB:
+        minimumNumberOfCalls: 7
+        failureRateThreshold: 50
+        waitDurationInOpenState: 20000
+        permittedNumberOfCallsInHalfOpenState: 3
