@@ -1,10 +1,10 @@
-package com.technologyos.employee.controller;
+package com.technologyos.task.controller;
 
 import com.google.gson.Gson;
-import com.technologyos.employee.config.ConfigProperties;
-import com.technologyos.employee.entities.Employee;
-import com.technologyos.employee.models.EmployeeProps;
-import com.technologyos.employee.repository.EmployeeRepository;
+import com.technologyos.task.config.ConfigProperties;
+import com.technologyos.task.entities.Task;
+import com.technologyos.task.models.TaskProps;
+import com.technologyos.task.repository.TaskRepository;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -21,31 +21,31 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/employee")
-public class EmployeeController {
+@RequestMapping("/api/v1/task")
+public class TaskController {
 
     @Autowired
-    private EmployeeRepository employeeRepository;
+    private TaskRepository taskRepository;
 
     @Autowired
     private ConfigProperties configProperties;
 
     @GetMapping()
-    @Operation(summary = "Get all employee",
-        description = "Get all employee with active status sorted by ASC creating time", tags = {"Employee"})
+    @Operation(summary = "Get all tasks",
+        description = "Get all tasks with active status sorted by ASC creating time", tags = {"Task"})
     @ApiResponses(value={@ApiResponse(responseCode = "200", description = "Success",
-        content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Employee.class))}),
+        content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Task.class))}),
         @ApiResponse(responseCode = "400", description = "Bad request")})
-    @CircuitBreaker(name="getEmployeesCB")
-    public ResponseEntity<List<Employee>> findAll() {
-        return Optional.ofNullable(employeeRepository.findAll().isEmpty() ? null:employeeRepository.findAll())
+    @CircuitBreaker(name="getTaskCB")
+    public ResponseEntity<List<Task>> findAll() {
+        return Optional.ofNullable(taskRepository.findAll().isEmpty() ? null:taskRepository.findAll())
             .map(ResponseEntity::ok)
             .orElse(ResponseEntity.noContent().build());
     }
 
     @GetMapping("/properties")
     public String getProperties(){
-        EmployeeProps employeeProps = new EmployeeProps(configProperties.getMsg(),
+        TaskProps employeeProps = new TaskProps(configProperties.getMsg(),
             configProperties.getVersion(), configProperties.getDetails());
         return new Gson().toJson(employeeProps);
     }
