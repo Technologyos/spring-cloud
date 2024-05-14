@@ -25,7 +25,7 @@ import java.util.Optional;
 public class EmployeeController {
 
     @Autowired
-    private EmployeeRepository roleRepository;
+    private EmployeeRepository employeeRepository;
 
     @Autowired
     private ConfigProperties configProperties;
@@ -38,7 +38,7 @@ public class EmployeeController {
         @ApiResponse(responseCode = "400", description = "Bad request")})
     @CircuitBreaker(name="getEmployeesCB")
     public ResponseEntity<List<Employee>> findAll() {
-        return Optional.ofNullable(roleRepository.findAll().isEmpty() ? null:roleRepository.findAll())
+        return Optional.ofNullable(employeeRepository.findAll().isEmpty() ? null:employeeRepository.findAll())
             .map(ResponseEntity::ok)
             .orElse(ResponseEntity.noContent().build());
     }
