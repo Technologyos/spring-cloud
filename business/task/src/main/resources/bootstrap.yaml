@@ -45,8 +45,8 @@ management:
 
 info:
   app:
-    name: Employee Microservice
-    description: Application to create and get Employees
+    name: Task Microservice
+    description: Application to create and get Task
     version: 1.0
 
 endpoint:
@@ -60,7 +60,7 @@ resilience4j:
       default:
         registerHealthIndicator: true
     instances:
-      getEmployeesCB:
+      getTaskCB:
         minimumNumberOfCalls: 7
         failureRateThreshold: 50
         waitDurationInOpenState: 20000

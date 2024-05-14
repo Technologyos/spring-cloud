@@ -3,20 +3,17 @@ package com.technologyos.task.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
-@Entity(name="Employee")
-@Table(name = "employee")
+@Entity(name="Task")
+@Table(name = "tasks")
 @Data
 public class Task {
 
     @Id
-    @SequenceGenerator(name = "employee_sequence", sequenceName = "employee_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_sequence")
-    @Column(name = "employee_id", updatable = false)
+    @SequenceGenerator(name = "task_sequence", sequenceName = "task_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "task_sequence")
+    @Column(name = "task_id", updatable = false)
     private Long id;
 
-    @Column(name = "employee_name", nullable = false)
+    @Column(name = "task_name", nullable = false)
     private String name;
-
-    @Column(name = "employee_email", nullable = false)
-    private String email;
 }

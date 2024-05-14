@@ -25,7 +25,7 @@ import java.util.Optional;
 public class TaskController {
 
     @Autowired
-    private TaskRepository roleRepository;
+    private TaskRepository taskRepository;
 
     @Autowired
     private ConfigProperties configProperties;
@@ -36,9 +36,9 @@ public class TaskController {
     @ApiResponses(value={@ApiResponse(responseCode = "200", description = "Success",
         content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Task.class))}),
         @ApiResponse(responseCode = "400", description = "Bad request")})
-    @CircuitBreaker(name="getEmployeesCB")
+    @CircuitBreaker(name="getTaskCB")
     public ResponseEntity<List<Task>> findAll() {
-        return Optional.ofNullable(roleRepository.findAll().isEmpty() ? null:roleRepository.findAll())
+        return Optional.ofNullable(taskRepository.findAll().isEmpty() ? null:taskRepository.findAll())
             .map(ResponseEntity::ok)
             .orElse(ResponseEntity.noContent().build());
     }
