@@ -12,6 +12,8 @@ eureka:
   instance:
     preferIpAddress: true
   client:
+    healthcheck:
+      enabled: true
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
@@ -24,10 +26,13 @@ spring:
   application:
     name: employee
   #config server configuration
-  profiles:
-    active: local
   config:
-    import: optional:configserver:http://localhost:8085
+    import: optional:configserver:http://localhost:8888
+  cloud:
+    config:
+      name: config-client
+      profile: local
+
 
 management:
   endpoints:
