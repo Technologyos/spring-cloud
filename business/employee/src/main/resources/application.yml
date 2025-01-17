@@ -1,0 +1,17 @@
+server:
+  servlet:
+    context-path: /api/v1
+  port: 8081
+
+spring:
+  application:
+    name: employee
+  #config server configuration
+  config:
+    import: optional:configserver:http://localhost:8888
+  cloud:
+    config:
+      username: admin
+      password: admin
+      name: spring-cloud
+      profile: local
