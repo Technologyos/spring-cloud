@@ -41,23 +41,9 @@ services:
       - discovery-network
       - postgres-network
 
-  task:
-    container_name: task-service
-    image: springservice/microservice-docker-task:0.0.1-SNAPSHOT
-    environment:
-      - JAVA_OPTS=${JAVA_OPTS_SERVICE}
-    depends_on:
-      - registry-discovery
-      - configuration
-    ports:
-      - 8082:8082
-    networks:
-      - discovery-network
-      - postgres-network
-
   postgres:
     container_name: postgres_service
-    image: postgres:14.2
+    image: postgres:16.1
     command: postgres -c 'max_connections=200'
     restart: always
     ports:
@@ -76,13 +62,13 @@ services:
 
   pgadmin4:
     container_name: pgadmin4-service
-    image: dpage/pgadmin4:8.4
+    image: dpage/pgadmin4:8.14
     restart: always
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGA_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGA_PASSWORD}
     ports:
-      - 8080:80 #Se ha eliminado la exposición del contenedor de pgAdmin al puerto 8080 en el host. Esto se hace para evitar exponer pgAdmin directamente al público y, en su lugar, conectarlo a través de una red interna.
+      - 8080:80
     depends_on:
       - postgres
     networks:
