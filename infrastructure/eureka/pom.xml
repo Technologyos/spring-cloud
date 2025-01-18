@@ -14,7 +14,6 @@
 	<name>eureka</name>
 	<description>Eureka Server</description>
 
-	<!--Version are management by parent spring cloud POM-->
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -24,8 +23,6 @@
 
 	<build>
 		<plugins>
-			<!--Need on each project for build and executable jar or war and
-            construct a manifest-->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
