@@ -1,4 +1,4 @@
-# spring-config
+<h1 align="center">Spring Cloud</h1>
 
 1. **Crear el contenedor:** Para crear el contenedor, ejecutamos el siguiente comando en la terminal: `docker-compose up -d`. Una vez finalizada la creación, nos dirigimos a la siguiente URL de pgAdmin en nuestro navegador: [http://localhost:8080/login?next=%2F](http://localhost:8080/login?next=%2F).
 
